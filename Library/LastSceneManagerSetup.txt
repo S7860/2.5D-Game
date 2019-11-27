@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/Warped Caves/Scenes/demo.unity
+  isLoaded: 0
+  isActive: 0
