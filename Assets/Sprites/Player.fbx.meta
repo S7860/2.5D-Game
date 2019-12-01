@@ -115,7 +115,12 @@ ModelImporter:
     9500000: //RootNode
     13700000: soldier
     2186277476908879412: ImportLogs
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: soldierMaterial
+    second: {fileID: 2100000, guid: 891aeb9941c201a4a82f62d7b1b4e89e, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
