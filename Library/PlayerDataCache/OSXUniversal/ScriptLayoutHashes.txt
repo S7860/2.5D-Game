@@ -1,8 +1,8 @@
 OSXUniversal
 PlayerPath?
-/Users/mrcajuste/Desktop/2.5D-Game-/2.5DGame.app
+/Users/shahzebkhalid/Documents/Computer-Game-Design /2.5D Game/2.5D Game /MainPage.app
 SceneListBegin?
-Assets/Main.unity
+Assets/Scenes/Main.unity
 Assets/Scenes/rpgpp_lt_scene_1.0.unity
 SceneListEnd?
 3c08375166df118bd1801438fc36b92f Unity.TextMeshPro.dll:TMPro.TMP_SelectionCaret
