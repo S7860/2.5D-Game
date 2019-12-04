@@ -158,11 +158,22 @@ public class PlayerController : MonoBehaviour
     Rigidbody rb;
     Animator anim;
 
-    void Start () {
-      rb = GetComponent<Rigidbody>();
-      anim = GetComponent<Animator>();
+    bool facingRight;
 
-    }
+
+
+    Vector3 characterScale;
+    float characterScaleX;
+
+  void Start () {
+    rb = GetComponent<Rigidbody>();
+    anim = GetComponent<Animator>();
+
+    facingRight = true;
+
+    characterScale = transform.localScale;
+    characterScaleX = characterScale.x;
+  }
   void Update () 
   {
     var vertical = Input.GetAxis("Vertical");
@@ -177,6 +188,35 @@ public class PlayerController : MonoBehaviour
     velocity *= Speed * Time.fixedDeltaTime; //Framerate and speed adjustment
     velocity.y = rb.velocity.y;
     rb.velocity = velocity;
-  }
+
+    if (horizontal > 0 && !facingRight) Flips(); 
+    else if (horizontal < 0 && facingRight) Flips();
     
+    // Vector3 characterScale = transform.localScale;
+    // if (Input.GetAxis("Horizontal") < 0) 
+    // {
+    //   characterScale.x *= -1;
+    // }
+    // if (Input.GetAxis("Horizontal") > 0)
+    // {
+    //   characterScale.x = 10;
+    // }
+    // transform.localScale = characterScale;
+
+    // if (vertical > 0 && !facingRight) Flips();
+    // else if (vertical < 0 && facingRight) Flips();
+    // int DistanceAway = 10;
+    // Vector3 PlayerPOS = GameObject.Find("Player").transform.transform.position;
+    // GameObject.Find("Main Camera").transform.position = new Vector3(PlayerPOS.x, PlayerPOS.y, PlayerPOS.z - DistanceAway);
+     
+  }
+
+  void Flips() {
+    
+    facingRight = !facingRight;
+    Vector3 theScale = transform.localScale;
+    theScale.z *= -1;
+    transform.localScale = theScale;
+    
+  } 
 }
