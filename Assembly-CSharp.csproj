@@ -64,6 +64,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\CameraController.cs" />
+    <Compile Include="Assets\EnemyHealth.cs" />
+    <Compile Include="Assets\EnemyMovement.cs" />
+    <Compile Include="Assets\PlayerHealth.cs" />
     <Compile Include="Assets\PlayerController.cs" />
     <Compile Include="Assets\Scripts\EnemyManager.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
