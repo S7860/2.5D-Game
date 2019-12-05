@@ -4,19 +4,51 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-  GameObject playerObj;
-  Vector3 cameraOffSet;
+   [SerializeField]
+    private Transform target;
 
-  void Start()
-  {
-    playerObj = GameObject.Find("Player");
-    cameraOffSet = new Vector3(10,10,-3);
-  }
+    [SerializeField]
+    private Vector3 offsetPosition;
 
-  void Update()
-  {
-      transform.position = playerObj.transform.position + cameraOffSet;
-  }
+    [SerializeField]
+    private Space offsetPositionSpace = Space.Self;
 
+    [SerializeField]
+    private bool lookAt = true;
+
+    private void LateUpdate()
+    {
+        Refresh();
+    }
+
+    public void Refresh()
+    {
+        if (target == null)
+        {
+            Debug.LogWarning("Missing target ref !", this);
+
+            return;
+        }
+
+        // compute position
+        if (offsetPositionSpace == Space.Self)
+        {
+            transform.position = target.TransformPoint(offsetPosition);
+        }
+        else
+        {
+            transform.position = target.position + offsetPosition;
+        }
+
+        // compute rotation
+        if (lookAt)
+        {
+            transform.LookAt(target);
+        }
+        else
+        {
+            transform.rotation = target.rotation;
+        }
+    }
 
 }
