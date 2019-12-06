@@ -4,87 +4,91 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-//     public float speed = 6f;            // The speed that the player will move at.
 
-//     Vector3 movement;                   // The vector to store the direction of the player's movement.
-//     Animator anim;                      // Reference to the animator component.
-//     Rigidbody playerRigidbody;          // Reference to the player's rigidbody.
-//     int floorMask;                      // A layer mask so that a ray can be cast just at gameobjects on the floor layer.
-//     float camRayLength = 100f;          // The length of the ray from the camera into the scene.
+    public float speed = 6f;            // The speed that the player will move at.
 
-//     void Awake ()
-//     {
-//         // Create a layer mask for the floor layer.
-//         floorMask = LayerMask.GetMask ("Floor");
+    Vector3 movement;                   // The vector to store the direction of the player's movement.
+    Animator anim;                      // Reference to the animator component.
+    Rigidbody playerRigidbody;          // Reference to the player's rigidbody.
+    int floorMask;                      // A layer mask so that a ray can be cast just at gameobjects on the floor layer.
+    float camRayLength = 100f;          // The length of the ray from the camera into the scene.
 
-//         // Set up references.
-//         anim = GetComponent <Animator> ();
-//         playerRigidbody = GetComponent <Rigidbody> ();
-//     }
+    void Awake ()
+    {
+        // Create a layer mask for the floor layer.
+        floorMask = LayerMask.GetMask ("Floor");
+
+        // Set up references.
+        anim = GetComponent <Animator> ();
+        playerRigidbody = GetComponent <Rigidbody> ();
+    }
 
 
-//     void FixedUpdate ()
-//     {
-//         // Store the input axes.
-//         float h = Input.GetAxisRaw ("Horizontal");
-//         float v = Input.GetAxisRaw ("Vertical");
+    void FixedUpdate ()
+    {
+        // Store the input axes.
+        float h = Input.GetAxisRaw ("Horizontal");
+        float v = Input.GetAxisRaw ("Vertical");
 
-//         // Move the player around the scene.
-//         Move (h, v);
+        anim.SetFloat("speed",Mathf.Abs(v));
+        anim.SetFloat("speed",Mathf.Abs(h));
 
-//         // Turn the player to face the mouse cursor.
-//         Turning ();
+        // Move the player around the scene.
+        Move (h, v);
 
-//         // Animate the player.
-//         Animating (h, v);
-//     }
+        // Turn the player to face the mouse cursor.
+        Turning ();
 
-//     void Move (float h, float v)
-//     {
-//         // Set the movement vector based on the axis input.
-//         movement.Set (h, 0f, v);
+        // Animate the player.
+        Animating (h, v);
+    }
 
-//         // Normalise the movement vector and make it proportional to the speed per second.
-//         movement = movement.normalized * speed * Time.deltaTime;
+    void Move (float h, float v)
+    {
+        // Set the movement vector based on the axis input.
+        movement.Set (h, 0f, v);
 
-//         // Move the player to it's current position plus the movement.
-//         playerRigidbody.MovePosition (transform.position + movement);
-//     }
+        // Normalise the movement vector and make it proportional to the speed per second.
+        movement = movement.normalized * speed * Time.deltaTime;
 
-//     void Turning ()
-//     {
-//         // Create a ray from the mouse cursor on screen in the direction of the camera.
-//         Ray camRay = Camera.main.ScreenPointToRay (Input.mousePosition);
+        // Move the player to it's current position plus the movement.
+        playerRigidbody.MovePosition (transform.position + movement);
+    }
 
-//         // Create a RaycastHit variable to store information about what was hit by the ray.
-//         RaycastHit floorHit;
+    void Turning ()
+    {
+        // Create a ray from the mouse cursor on screen in the direction of the camera.
+        Ray camRay = Camera.main.ScreenPointToRay (Input.mousePosition);
 
-//         // Perform the raycast and if it hits something on the floor layer...
-//         if(Physics.Raycast (camRay, out floorHit, camRayLength, floorMask))
-//         {
-//             // Create a vector from the player to the point on the floor the raycast from the mouse hit.
-//             Vector3 playerToMouse = floorHit.point - transform.position;
+        // Create a RaycastHit variable to store information about what was hit by the ray.
+        RaycastHit floorHit;
 
-//             // Ensure the vector is entirely along the floor plane.
-//             playerToMouse.y = 0f;
+        // Perform the raycast and if it hits something on the floor layer...
+        if(Physics.Raycast (camRay, out floorHit, camRayLength, floorMask))
+        {
+            // Create a vector from the player to the point on the floor the raycast from the mouse hit.
+            Vector3 playerToMouse = floorHit.point - transform.position;
 
-//             // Create a quaternion (rotation) based on looking down the vector from the player to the mouse.
-//             Quaternion newRotation = Quaternion.LookRotation (playerToMouse);
+            // Ensure the vector is entirely along the floor plane.
+            playerToMouse.y = 0f;
 
-//             // Set the player's rotation to this new rotation.
-//             playerRigidbody.MoveRotation (newRotation);
-//         }
-//     }
+            // Create a quaternion (rotation) based on looking down the vector from the player to the mouse.
+            Quaternion newRotation = Quaternion.LookRotation (playerToMouse);
 
-//     void Animating (float h, float v)
-//     {
-//         // Create a boolean that is true if either of the input axes is non-zero.
-//         bool walking = h != 0f || v != 0f;
+            // Set the player's rotation to this new rotation.
+            playerRigidbody.MoveRotation (newRotation);
+        }
+    }
 
-//         // Tell the animator whether or not the player is walking.
-//         anim.SetBool ("IsWalking", walking);
-//     }
-// }
+    void Animating (float h, float v)
+    {
+        // Create a boolean that is true if either of the input axes is non-zero.
+        bool walking = h != 0f || v != 0f;
+
+        // Tell the animator whether or not the player is walking.
+        anim.SetBool ("IsWalking", walking);
+    }
+}
 
 // using System.Collections;
 // using System.Collections.Generic;
@@ -92,97 +96,97 @@ public class PlayerMovement : MonoBehaviour
 
 // public class PlayerController : MonoBehaviour
 // {
-  // public float Speed = 200f;
-  // Rigidbody rb;
-  // Animator anim;
+//   public float Speed = 200f;
+//   Rigidbody rb;
+//   Animator anim;
 
-  // bool facingRight;
-  // bool facingUp;
-  // public float rotateSpeed = 3.0F;
+//   bool facingRight;
+//   bool facingUp;
+//   public float rotateSpeed = 3.0F;
 
-  // void Start () {
-  //   rb = GetComponent<Rigidbody>();
-  //   anim = GetComponent<Animator>();
+//   void Start () {
+//     rb = GetComponent<Rigidbody>();
+//     anim = GetComponent<Animator>();
 
-  //   facingRight = true;
-  //   facingUp = true;
-
-
-  // }
-  // void Update ()
-  // {
-  //     var vertical = Input.GetAxis("Vertical");
-  //     var horizontal = Input.GetAxis("Horizontal") ;
-
-  //     anim.SetFloat("speed",Mathf.Abs(vertical));
-  //     anim.SetFloat("speed",Mathf.Abs(horizontal));
-
-  //     Vector3 velocity = Vector3.zero;
-  //     velocity += (transform.forward * horizontal ); //Move forward
-  //     velocity += (transform.right * vertical); //Strafe
-  //     velocity *= Speed * Time.fixedDeltaTime; //Framerate and speed adjustment
-  //     velocity.y = rb.velocity.y;
-  //     rb.velocity = velocity;
+//     facingRight = true;
+//     facingUp = true;
 
 
-  //     if (horizontal > 0 && !facingRight) FlipsRight();
-  //     else if (horizontal < 0 && facingRight) FlipsRight();
-  // }
+//   }
+//   void Update ()
+//   {
+//       var vertical = Input.GetAxis("Vertical");
+//       var horizontal = Input.GetAxis("Horizontal") ;
 
-  // void FlipsRight() {
+//       anim.SetFloat("speed",Mathf.Abs(vertical));
+//       anim.SetFloat("speed",Mathf.Abs(horizontal));
 
-  //   facingRight = !facingRight;
-  //   Vector3 theScale = transform.localScale;
-  //   theScale.z *= -1;
-  //   transform.localScale = theScale;
+//       Vector3 velocity = Vector3.zero;
+//       velocity += (transform.forward * horizontal ); //Move forward
+//       velocity += (transform.right * vertical); //Strafe
+//       velocity *= Speed * Time.fixedDeltaTime; //Framerate and speed adjustment
+//       velocity.y = rb.velocity.y;
+//       rb.velocity = velocity;
 
-  // }
 
-    public float speed = 3.0F;
-    public float jumpSpeed = 8.0F;
-    public float gravity = 20.0F;
-    public float rotateSpeed = 100.0F;
-    private Vector3 moveDirection = Vector3.zero;
-    Animator anim;
+//       if (horizontal > 0 && !facingRight) FlipsRight();
+//       else if (horizontal < 0 && facingRight) FlipsRight();
+//   }
 
-    bool running;
-    // Use this for initialization
-    void Start()
-    {
-      anim = GetComponent<Animator>();
-    }
+//   void FlipsRight() {
 
-    // Update is called once per frame
-    void Update()
-    {
+//     facingRight = !facingRight;
+//     Vector3 theScale = transform.localScale;
+//     theScale.z *= -1;
+//     transform.localScale = theScale;
 
-        CharacterController controller = GetComponent<CharacterController>();
-        var vertical = Input.GetAxis("Vertical");
-        var horizontal = Input.GetAxis("Horizontal");
+//   }
 
-        if (controller.isGrounded)
-        {
-            moveDirection = new Vector3(0, 0, Input.GetAxis("Vertical"));
-            anim.SetFloat("speed",Mathf.Abs(vertical));
-            moveDirection = transform.TransformDirection(moveDirection);
-            moveDirection *= speed;
-            if (Input.GetButton("Jump"))
-                moveDirection.y = jumpSpeed;
+    // public float speed = 3.0F;
+    // public float jumpSpeed = 8.0F;
+    // public float gravity = 20.0F;
+    // public float rotateSpeed = 100.0F;
+    // private Vector3 moveDirection = Vector3.zero;
+    // Animator anim;
 
-            if (Mathf.Abs(horizontal) > 0)
-            { 
-              running = true;
-            }
-        }
-        moveDirection.y -= gravity * Time.deltaTime;
-        controller.Move(moveDirection * Time.deltaTime);
+    // bool running;
+    // // Use this for initialization
+    // void Start()
+    // {
+    //   anim = GetComponent<Animator>();
+    // }
 
-        //Rotate Player
-        transform.Rotate(0, Input.GetAxis("Horizontal"), 0);
+    // // Update is called once per frame
+    // void Update()
+    // {
 
-    }
-    public bool getRunning()
-    {
-      return (running);
-    }
-}
+    //     CharacterController controller = GetComponent<CharacterController>();
+    //     var vertical = Input.GetAxis("Vertical");
+    //     var horizontal = Input.GetAxis("Horizontal");
+
+    //     if (controller.isGrounded)
+    //     {
+    //         moveDirection = new Vector3(0, 0, Input.GetAxis("Vertical"));
+    //         anim.SetFloat("speed",Mathf.Abs(vertical));
+    //         moveDirection = transform.TransformDirection(moveDirection);
+    //         moveDirection *= speed;
+    //         if (Input.GetButton("Jump"))
+    //             moveDirection.y = jumpSpeed;
+
+    //         if (Mathf.Abs(horizontal) > 0)
+    //         { 
+    //           running = true;
+    //         }
+    //     }
+    //     moveDirection.y -= gravity * Time.deltaTime;
+    //     controller.Move(moveDirection * Time.deltaTime);
+
+    //     //Rotate Player
+    //     transform.Rotate(0, Input.GetAxis("Horizontal"), 0);
+
+    // }
+    // public bool getRunning()
+    // {
+    //   return (running);
+    // }
+// }
