@@ -68,6 +68,8 @@
     <Compile Include="Assets\EnemyHealth.cs" />
     <Compile Include="Assets\EnemyManager.cs" />
     <Compile Include="Assets\EnemyMovement.cs" />
+    <Compile Include="Assets\GameOverCanvas.cs" />
+    <Compile Include="Assets\GameOverManager.cs" />
     <Compile Include="Assets\PlayerController.cs" />
     <Compile Include="Assets\PlayerHealth.cs" />
     <Compile Include="Assets\PlayerMovement.cs" />
